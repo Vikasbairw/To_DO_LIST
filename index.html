@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <h1>➕TO_DO_LIST➕</h1>
+    <div class="main">
+        <input type="text" id="input" placeholder="Enter the value" autofocus>
+        <ul id="idname">
+        </ul>
+    </div>
+    <script>
+        document.getElementById('input').addEventListener(
+            'keyup', 
+            function (e) {
+                if (e.key == 'Enter') {
+                    var value = document.getElementById('input').value
+                    //when value is emity
+                    if (value == '') {
+                        alert("please enter the value")
+                    } else {
+                        document.getElementById('idname').innerHTML += `<li > ${value} <span onclick='todohandler(this)'>x</span></li>`
+
+                    }
+
+
+                    //add value in localstore
+                    const todos = document.getElementById('idname').innerHTML;
+                    localStorage.setItem("todos", todos);
+                    e.target.value = ""
+                } else {
+                }
+            })
+
+        //todolist reload when window is load
+        window.onload = function () {
+            const locallist = localStorage.getItem("todos");
+            document.getElementById('idname').innerHTML = locallist
+        }
+
+        //remove items in localstore
+        function todohandler(list) {
+            list.parentNode.remove();
+            const todos = document.getElementById('idname').innerHTML;
+            localStorage.setItem('todos', todos)
+        }
+    </script>
+</body>
+
+</html>
